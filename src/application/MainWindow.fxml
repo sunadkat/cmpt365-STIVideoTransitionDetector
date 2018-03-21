@@ -16,7 +16,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
    <bottom>
-      <VBox prefHeight="111.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <VBox prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <HBox prefWidth="200.0">
                <children>
@@ -27,23 +27,65 @@
                   </VBox>
                </children>
             </HBox>
-            <HBox prefHeight="68.0" prefWidth="600.0">
+            <HBox prefWidth="600.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#openImage" prefWidth="80.0" text="Open">
                      <HBox.margin>
-                        <Insets left="100.0" top="10.0" />
+                        <Insets bottom="18.0" left="100.0" top="18.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" prefWidth="80.0" text="Play">
+                  <VBox>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="STI Method" />
+                        <RadioButton mnemonicParsing="false" selected="true" text="Copying Pixels">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="sti" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton mnemonicParsing="false" text="Histogram Difference" toggleGroup="$sti">
+                           <VBox.margin>
+                              <Insets bottom="5.0" top="5.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                     </children>
                      <HBox.margin>
-                        <Insets left="10.0" top="10.0" />
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox layoutX="200.0" layoutY="10.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Computation" />
+                        <RadioButton mnemonicParsing="false" selected="true" text="Row">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="computation" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton mnemonicParsing="false" text="Column" toggleGroup="$computation">
+                           <VBox.margin>
+                              <Insets bottom="5.0" top="5.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <Button mnemonicParsing="false" onAction="#runSTIComputation" prefWidth="80.0" text="Run">
+                     <HBox.margin>
+                        <Insets bottom="18.0" left="10.0" top="18.0" />
                      </HBox.margin>
                   </Button>
                </children>
             </HBox>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CMPT 365 | Simon Fraser University | May 2017&#10;David Tran (dta31@sfu.ca) | Sonal Unadkat (sunadkat@sfu.ca)" textAlignment="CENTER" wrappingWidth="456.638671875">
                <VBox.margin>
-                  <Insets left="50.0" />
+                  <Insets bottom="10.0" left="70.0" />
                </VBox.margin>
             </Text>
          </children>

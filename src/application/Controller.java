@@ -18,6 +18,8 @@ import org.opencv.videoio.Videoio;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -25,8 +27,9 @@ import utilities.Utilities;
 
 public class Controller {
 	
-	@FXML
-	private ImageView imageView; // the image display window in the GUI
+	@FXML private ImageView imageView; // the image display window in the GUI
+	@FXML private ToggleGroup sti;
+	@FXML private ToggleGroup computation;
 	
 	private Mat image;
 	
@@ -39,6 +42,17 @@ public class Controller {
 	
 	@FXML
 	private void initialize() throws UnsupportedAudioFileException, IOException, LineUnavailableException {	
+	}
+	
+	@FXML
+	private void runSTIComputation(ActionEvent event) {
+		RadioButton stiRadio = (RadioButton) sti.getSelectedToggle();
+		String stiOption = stiRadio.getText();
+		RadioButton computationRadio = (RadioButton) computation.getSelectedToggle();
+		String computationOption = computationRadio.getText();
+		
+		System.out.println(stiOption);
+		System.out.println(computationOption);
 	}
 	
 	private String getImageFilename() {
