@@ -29,7 +29,7 @@
             </HBox>
             <HBox prefWidth="600.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#openImage" prefWidth="80.0" text="Open">
+                  <Button mnemonicParsing="false" onAction="#selectVideo" prefWidth="80.0" text="Open">
                      <HBox.margin>
                         <Insets bottom="18.0" left="100.0" top="18.0" />
                      </HBox.margin>
