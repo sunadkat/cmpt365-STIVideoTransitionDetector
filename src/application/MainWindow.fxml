@@ -18,6 +18,11 @@
    <bottom>
       <VBox prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
+            <Text fx:id="videoName" strokeType="OUTSIDE" strokeWidth="0.0" text="Loaded Video: None">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </Text>
             <HBox prefWidth="200.0">
                <children>
                   <VBox prefWidth="50.0">
@@ -81,6 +86,8 @@
                         <Insets bottom="18.0" left="10.0" top="18.0" />
                      </HBox.margin>
                   </Button>
+                  <VBox layoutX="344.0" layoutY="10.0" />
+                  <CheckBox fx:id="isScaled" mnemonicParsing="false" text="Downscale" />
                </children>
             </HBox>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CMPT 365 | Simon Fraser University | May 2017&#10;David Tran (dta31@sfu.ca) | Sonal Unadkat (sunadkat@sfu.ca)" textAlignment="CENTER" wrappingWidth="456.638671875">
@@ -92,14 +99,6 @@
       </VBox>
    </bottom>
    <center>
-      <VBox>
-         <children>
-            <ImageView fx:id="imageView" fitHeight="263.0" fitWidth="421.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-               <VBox.margin>
-                  <Insets left="90.0" top="10.0" />
-               </VBox.margin>
-            </ImageView>
-         </children>
-      </VBox>
+      <ImageView fx:id="imageView" fitHeight="263.0" fitWidth="421.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>
