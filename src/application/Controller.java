@@ -91,24 +91,28 @@ public class Controller {
 			Mat frame = new Mat();
 			Mat scaledFrame = new Mat();
 			capture.read(frame);
-			int stiHeight;
+			int stiHeight, col;
 			
 			if (computationOption == 0) {
 				if (isScaled.isSelected()) {
 					stiHeight = scaledWidth;
+					col = scaledHeight;
 				} else {
 					stiHeight = frame.width();
+					col = frame.height();
 				}
 			} else {
 				if (isScaled.isSelected()) {
 					stiHeight = scaledHeight;
+					col = scaledWidth;
 				} else {
 					stiHeight = frame.height();
+					col = frame.width();
 				}
 			}
 			
-			if (stiOption == 1) { // Create Histograms
-				
+			if (stiOption == 1) {
+				initHistogram(stiHeight, col);
 			}
 			
 			double totalFrames = capture.get(Videoio.CAP_PROP_FRAME_COUNT);
@@ -123,12 +127,14 @@ public class Controller {
 						computeCopyPixel(scaledFrame, stiHeight);
 					} else {
 						// histogram here
+						scanColumns(scaledFrame, stiHeight, col);
 					}
 				} else {
 					if (stiOption == 0) {
 						computeCopyPixel(frame, stiHeight);
 					} else {
 						// histogram here
+						scanColumns(frame, stiHeight, col);
 					}
 				}
 			}
@@ -149,7 +155,23 @@ public class Controller {
 		}
 	}
 	
-	private void initHistogram() {
-		
+	private void initHistogram(int stiHeight, int col) {
+		currentFrame = new Histogram[col];
+		prevFrame = new Histogram[col];
+		int bins = (int) Math.floor(1 + (Math.log(stiHeight)/Math.log(2)));
+		for (int i = 0; i < col; i++) {
+			currentFrame[i] = new Histogram(bins);
+			prevFrame[i] = new Histogram(bins);
+		}
+	}
+	
+	private void scanColumns(Mat frame, int stiHeight, int col) {
+		for (int i = 0; i < col; i++) {
+			System.out.println(capture.get(Videoio.CAP_PROP_POS_FRAMES) -1);
+			currentFrame[i].ComputeColumn(frame, stiHeight, i);
+			if (i != 0) { // Need to fix this (copy current frame to prev)
+				prevFrame[i].ComputeColumn(frame, stiHeight, i-1);
+			}
+		}
 	}
 }
