@@ -37,6 +37,7 @@ public class Controller {
 	private VideoCapture capture;
 	private String fileName;
 	private int computationOption;
+	private int stiOption;
 	private int scaledWidth = 32;
 	private int scaledHeight = 32;
 	
@@ -63,52 +64,72 @@ public class Controller {
 	@FXML
 	private void runSTIComputation(ActionEvent event) {
 		RadioButton stiRadio = (RadioButton) sti.getSelectedToggle();
-		String stiOption = stiRadio.getText();
 		RadioButton computationRadio = (RadioButton) computation.getSelectedToggle();
 		
-		System.out.println(stiOption);
 		if (computationRadio.getText().equals("Row")) {
 			computationOption = 0;
 		} else {
 			computationOption = 1;
 		}
 		
+		if (stiRadio.getText().equals("Copying Pixels")) {
+			stiOption = 0;
+		} else {
+			stiOption = 1;
+		}
+		
 		if (fileName != null) {
 			capture = new VideoCapture(fileName);
 			if (capture.isOpened()) {
-				scanFrames(stiOption);
+				scanFrames();
 			}
 		}
 	}
 	
-	private void scanFrames(String stiOption) {
+	private void scanFrames() {
 		if (capture != null && capture.isOpened()) {
 			Mat frame = new Mat();
 			Mat scaledFrame = new Mat();
 			capture.read(frame);
-			int width, height;
-			if (isScaled.isSelected()) {
-				width = scaledWidth;
-				height = scaledHeight;
+			int stiHeight;
+			
+			if (computationOption == 0) {
+				if (isScaled.isSelected()) {
+					stiHeight = scaledWidth;
+				} else {
+					stiHeight = frame.width();
+				}
 			} else {
-				width = frame.width();
-				height = frame.height();
+				if (isScaled.isSelected()) {
+					stiHeight = scaledHeight;
+				} else {
+					stiHeight = frame.height();
+				}
 			}
+			
+			if (stiOption == 1) { // Create Histograms
+				
+			}
+			
 			double totalFrames = capture.get(Videoio.CAP_PROP_FRAME_COUNT);
 			capture.set(Videoio.CAP_PROP_POS_FRAMES, 0);
 			
-			if (computationOption == 0) {
-				image = new Mat(width, (int) totalFrames, frame.type());
-			} else {
-				image = new Mat(height, (int) totalFrames, frame.type());
-			}
+			image = new Mat(stiHeight, (int) totalFrames, frame.type());
 			
-			while(capture.read(frame)) {
+			while(capture.read(frame)) { // Go through each frame
 				if (isScaled.isSelected()) {
 					Imgproc.resize(frame, scaledFrame, new Size(scaledWidth, scaledHeight));
-					computeCopyPixel(scaledFrame, width, height);
+					if (stiOption == 0) {
+						computeCopyPixel(scaledFrame, stiHeight);
+					} else {
+						// histogram here
+					}
 				} else {
-					computeCopyPixel(frame, width, height);
+					if (stiOption == 0) {
+						computeCopyPixel(frame, stiHeight);
+					} else {
+						// histogram here
+					}
 				}
 			}
 			// Output STI to GUI
@@ -118,13 +139,17 @@ public class Controller {
 		}
 	}
 	
-	private void computeCopyPixel(Mat frame, int width, int height) {
+	private void computeCopyPixel(Mat frame, int stiHeight) { // Moves the middle col/row of current frame to STI[current frame -1]
 		if (frame != null) {
 			if (computationOption == 0) {
-				(frame.row(height/2)).t().copyTo(image.col((int) capture.get(Videoio.CAP_PROP_POS_FRAMES) -1));
+				(frame.row(stiHeight/2)).t().copyTo(image.col((int) capture.get(Videoio.CAP_PROP_POS_FRAMES) -1));
 			} else {
-				(frame.col(width/2)).copyTo(image.col((int) capture.get(Videoio.CAP_PROP_POS_FRAMES) -1));
+				(frame.col(stiHeight/2)).copyTo(image.col((int) capture.get(Videoio.CAP_PROP_POS_FRAMES) -1));
 			}
 		}
+	}
+	
+	private void initHistogram() {
+		
 	}
 }

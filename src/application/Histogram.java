@@ -74,8 +74,7 @@ class Histogram {
 		if(sum == 0) { // Case 1 : Black (0,0,0)
 			r = 0;
 			g = 0;
-		} else // Case 2 : Non-Black Pixel
-		{
+		} else { // Case 2 : Non-Black Pixel
 			r = ((float)red)/ sum;
 			g = ((float)green)/ sum;
 		}
