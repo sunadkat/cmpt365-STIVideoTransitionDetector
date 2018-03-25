@@ -42,7 +42,7 @@
                   <VBox>
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="STI Method" />
-                        <RadioButton mnemonicParsing="false" selected="true" text="Copying Pixels">
+                        <RadioButton mnemonicParsing="false" onAction="#selectCopyPixel" selected="true" text="Copying Pixels">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
@@ -50,7 +50,7 @@
                               <ToggleGroup fx:id="sti" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton mnemonicParsing="false" text="Histogram Difference" toggleGroup="$sti">
+                        <RadioButton mnemonicParsing="false" onAction="#selectHistogram" text="Histogram Difference" toggleGroup="$sti">
                            <VBox.margin>
                               <Insets bottom="5.0" top="5.0" />
                            </VBox.margin>

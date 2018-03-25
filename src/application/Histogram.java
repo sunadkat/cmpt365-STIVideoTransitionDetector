@@ -8,14 +8,20 @@ import utilities.Utilities;
 class Histogram {
 	private float[][] entry;
 	private int size;
+	private int sum;
 	
-	protected Histogram(int x) {
+	protected Histogram(int x, int y) {
 		size = x;
+		sum = y;
 		entry = new float[size][size];
 	}
 	
 	protected float[][] getHist() {
 		return entry;
+	}
+	
+	protected float getHistEntry(int x, int y) {
+		return entry[x][y];
 	}
 	
 	protected int getSize() {
@@ -38,7 +44,7 @@ class Histogram {
 		System.out.println("/Histogram End");
 	}
 	
-	protected void computeColumn(Mat original, int frameWidth, int column) {
+	protected void computeColumn(Mat original, int frameWidth, int column) { //only calcs for rows atm need to add cols
 		BufferedImage image = Utilities.matToBufferedImage(original);
 		this.clearHistogram();
 		for(int i = 0; i < frameWidth; ++i) {
@@ -47,13 +53,30 @@ class Histogram {
 			int[] position = getPosition(rg, size);
 			this.add(position[0], position[1]);
 		}
-		//this.printHistogram();
 	}
 	
 	protected void copyColumn(Histogram original) {
 		for (int i = 0; i < size; i++) {
 			System.arraycopy(original.getHist()[i], 0, entry[i], 0, size);
 		}
+	}
+	
+	protected void normalize() {
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+				entry[i][j] /= sum; 
+			}
+		}
+	}
+	
+	protected float compareColumn(Histogram x) {
+		float summation = 0;
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+				summation += Math.min(entry[i][j], x.getHistEntry(i, j));
+			}
+		}
+		return summation*255;
 	}
 	
 	private void clearHistogram() {
@@ -65,8 +88,8 @@ class Histogram {
 	
 	private int[] getPosition(float[] rg, int size) {// Calculates where pixel should be in our histogram
 		int[] position = new int[2];
-		position[0] = (int) Math.ceil(rg[0]* size) - 1;
-		position [1] = (int) Math.ceil(rg[1] * size) - 1;
+		position[0] = (int) Math.ceil(rg[0]*size) - 1;
+		position [1] = (int) Math.ceil(rg[1]*size) - 1;
 		
 		if (position[0] ==-1) position[0] = 0;
 		if (position[1] == -1) position[1] = 0;
