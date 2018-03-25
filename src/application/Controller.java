@@ -127,14 +127,14 @@ public class Controller {
 						computeCopyPixel(scaledFrame, stiHeight);
 					} else {
 						// histogram here
-						scanColumns(scaledFrame, stiHeight, col);
+						generateHistColumns(scaledFrame, stiHeight, col);
 					}
 				} else {
 					if (stiOption == 0) {
 						computeCopyPixel(frame, stiHeight);
 					} else {
 						// histogram here
-						scanColumns(frame, stiHeight, col);
+						generateHistColumns(frame, stiHeight, col);
 					}
 				}
 			}
@@ -165,13 +165,12 @@ public class Controller {
 		}
 	}
 	
-	private void scanColumns(Mat frame, int stiHeight, int col) {
+	private void generateHistColumns(Mat frame, int stiHeight, int col) {
 		for (int i = 0; i < col; i++) {
-			System.out.println(capture.get(Videoio.CAP_PROP_POS_FRAMES) -1);
-			currentFrame[i].ComputeColumn(frame, stiHeight, i);
-			if (i != 0) { // Need to fix this (copy current frame to prev)
-				prevFrame[i].ComputeColumn(frame, stiHeight, i-1);
+			if ((int) capture.get(Videoio.CAP_PROP_POS_FRAMES) -1 != 0) {
+				prevFrame[i].copyColumn(currentFrame[i]);
 			}
+			currentFrame[i].computeColumn(frame, stiHeight, i);	
 		}
 	}
 }
