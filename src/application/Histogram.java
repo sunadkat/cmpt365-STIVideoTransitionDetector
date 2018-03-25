@@ -55,6 +55,17 @@ class Histogram {
 		}
 	}
 	
+	protected void computeRow(Mat original, int frameHeight, int column) {
+		BufferedImage image = Utilities.matToBufferedImage(original);
+		this.clearHistogram();
+		for(int i = 0; i < frameHeight; ++i) {
+			Color rgb = new Color(image.getRGB(column,i)); // getRGB(row,column).
+			float[] rg = getRg(rgb);
+			int[] position = getPosition(rg, size);
+			this.add(position[0], position[1]);
+		}
+	}
+	
 	protected void copyColumn(Histogram original) {
 		for (int i = 0; i < size; i++) {
 			System.arraycopy(original.getHist()[i], 0, entry[i], 0, size);
