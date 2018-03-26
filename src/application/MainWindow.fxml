@@ -23,28 +23,31 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Text>
-            <HBox prefWidth="200.0">
-               <children>
-                  <VBox prefWidth="50.0">
-                     <HBox.margin>
-                        <Insets left="100.0" />
-                     </HBox.margin>
-                  </VBox>
-               </children>
-            </HBox>
+            <HBox prefWidth="200.0" />
             <HBox prefWidth="600.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#selectVideo" prefWidth="80.0" text="Open">
-                     <HBox.margin>
-                        <Insets bottom="18.0" left="100.0" top="18.0" />
-                     </HBox.margin>
-                  </Button>
                   <VBox>
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="STI Method" />
-                        <RadioButton mnemonicParsing="false" onAction="#selectCopyPixel" selected="true" text="Copying Pixels">
+                        <Button mnemonicParsing="false" onAction="#selectVideo" prefWidth="80.0" text="Open">
+                           <VBox.margin>
+                              <Insets bottom="5.0" top="3.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#runSTIComputation" prefWidth="80.0" text="Run" />
+                     </children>
+                     <HBox.margin>
+                        <Insets left="90.0" top="5.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="STI Method">
                            <VBox.margin>
                               <Insets />
+                           </VBox.margin></Text>
+                        <RadioButton mnemonicParsing="false" onAction="#selectCopyPixel" selected="true" text="Copying Pixels">
+                           <VBox.margin>
+                              <Insets top="5.0" />
                            </VBox.margin>
                            <toggleGroup>
                               <ToggleGroup fx:id="sti" />
@@ -57,15 +60,18 @@
                         </RadioButton>
                      </children>
                      <HBox.margin>
-                        <Insets left="10.0" />
+                        <Insets left="20.0" />
                      </HBox.margin>
                   </VBox>
                   <VBox layoutX="200.0" layoutY="10.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Computation" />
-                        <RadioButton mnemonicParsing="false" selected="true" text="Row">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Computation">
                            <VBox.margin>
                               <Insets />
+                           </VBox.margin></Text>
+                        <RadioButton mnemonicParsing="false" selected="true" text="Row">
+                           <VBox.margin>
+                              <Insets top="5.0" />
                            </VBox.margin>
                            <toggleGroup>
                               <ToggleGroup fx:id="computation" />
@@ -81,21 +87,28 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                   </VBox>
-                  <Button mnemonicParsing="false" onAction="#runSTIComputation" prefWidth="80.0" text="Run">
+                  <VBox layoutX="344.0" layoutY="10.0">
+                     <children>
+                        <CheckBox fx:id="isScaled" mnemonicParsing="false" text="Downscale">
+                           <VBox.margin>
+                              <Insets top="23.0" />
+                           </VBox.margin>
+                        </CheckBox>
+                     </children>
                      <HBox.margin>
-                        <Insets bottom="18.0" left="10.0" top="18.0" />
-                     </HBox.margin>
-                  </Button>
-                  <VBox layoutX="344.0" layoutY="10.0" />
-                  <CheckBox fx:id="isScaled" mnemonicParsing="false" text="Downscale" />
+                        <Insets left="20.0" />
+                     </HBox.margin></VBox>
                </children>
             </HBox>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CMPT 365 | Simon Fraser University | May 2017&#10;David Tran (dta31@sfu.ca) | Sonal Unadkat (sunadkat@sfu.ca)" textAlignment="CENTER" wrappingWidth="456.638671875">
                <VBox.margin>
-                  <Insets bottom="10.0" left="70.0" />
+                  <Insets bottom="5.0" left="75.0" />
                </VBox.margin>
             </Text>
          </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
       </VBox>
    </bottom>
    <center>
