@@ -106,7 +106,7 @@ public class Controller {
 						Imgproc.resize(frame, scaledFrame, new Size(scaledWidth, scaledHeight));
 						if (stiOption == 0) {
 							computeCopyPixel(scaledFrame);
-						} else {
+						} else {// Histogram Selected
 							generateHistColumns(scaledFrame);
 							compareHistFrames();
 							drawHistogramSTI();
@@ -178,10 +178,11 @@ public class Controller {
 			if ((int) capture.get(Videoio.CAP_PROP_POS_FRAMES) -1 != 0) {
 				prevFrame[i].copyColumn(currentFrame[i]);
 			}
-			currentFrame[i].computeColumn(frame, frameWidth, i);	
+			currentFrame[i].computeHistogram(frame, frameWidth, i, computationOption);
 			currentFrame[i].normalize();
 		}
 	}
+	
 	
 	private void compareHistFrames() {
 		columnVector = new float[stiHeight];

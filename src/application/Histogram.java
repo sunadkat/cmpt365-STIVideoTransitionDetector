@@ -44,11 +44,16 @@ class Histogram {
 		System.out.println("/Histogram End");
 	}
 	
-	protected void computeColumn(Mat original, int frameWidth, int column) { //only calcs for rows atm need to add cols
+	protected void computeHistogram(Mat original, int frameWidth, int column, int operation) {
 		BufferedImage image = Utilities.matToBufferedImage(original);
 		this.clearHistogram();
 		for(int i = 0; i < frameWidth; ++i) {
-			Color rgb = new Color(image.getRGB(i,column)); // getRGB(row,column).
+			Color rgb;
+			if (operation == 0) { // Computation for row
+				rgb = new Color(image.getRGB(column,i));
+			} else { //compute column
+				rgb = new Color(image.getRGB(i,column));
+			}
 			float[] rg = getRg(rgb);
 			int[] position = getPosition(rg, size);
 			this.add(position[0], position[1]);
