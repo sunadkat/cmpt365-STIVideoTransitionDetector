@@ -23,7 +23,6 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Text>
-            <HBox prefWidth="200.0" />
             <HBox prefWidth="600.0">
                <children>
                   <VBox>
@@ -91,9 +90,11 @@
                      <children>
                         <CheckBox fx:id="isScaled" mnemonicParsing="false" text="Downscale">
                            <VBox.margin>
-                              <Insets top="23.0" />
+                              <Insets bottom="3.0" />
                            </VBox.margin>
                         </CheckBox>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Threshold" />
+                        <TextField fx:id="thresholdInput" maxWidth="80.0" />
                      </children>
                      <HBox.margin>
                         <Insets left="20.0" />

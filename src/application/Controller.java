@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,6 +28,7 @@ public class Controller {
 	@FXML private ToggleGroup computation;
 	@FXML private CheckBox isScaled;
 	@FXML private Text videoName;
+	@FXML private TextField thresholdInput;
 	
 	private Mat image;
 	
@@ -41,6 +43,13 @@ public class Controller {
 	private int stiHeight;
 	private int scaledWidth = 32;
 	private int scaledHeight = 32;
+	private double threshold = 0.0;
+	
+	@FXML
+	private void initialize() {
+		thresholdInput.setText(Double.toString(threshold));
+		thresholdInput.setDisable(true);
+	}
 	
 	@FXML
 	private void selectVideo(ActionEvent event) {
@@ -61,6 +70,7 @@ public class Controller {
 	@FXML
 	private void selectCopyPixel(ActionEvent event) {
 		isScaled.setDisable(false);
+		thresholdInput.setDisable(true);
 		stiOption = 0;
 	}
 	
@@ -68,6 +78,7 @@ public class Controller {
 	private void selectHistogram(ActionEvent event) {
 		isScaled.setSelected(true);
 		isScaled.setDisable(true);
+		thresholdInput.setDisable(false);
 		stiOption = 1;
 	}
 	
@@ -95,7 +106,7 @@ public class Controller {
 			setOptions(frame);
 			
 			int totalFrames = (int) capture.get(Videoio.CAP_PROP_FRAME_COUNT);
-			if (totalFrames%2 == 1) totalFrames -= 1;
+			if (stiOption == 1) totalFrames -= 1;
 			capture.set(Videoio.CAP_PROP_POS_FRAMES, 0);
 			
 			image = new Mat(stiHeight, totalFrames, frame.type());
@@ -140,12 +151,27 @@ public class Controller {
 				}
 			}
 		} else {
+			validateThreshold();
 			if (computationOption == 0) {
 				stiHeight = scaledHeight;
 			} else {
 				stiHeight = scaledWidth;
 			}
 			initHistogram();
+		}
+	}
+	
+	private void validateThreshold() {
+		double original = threshold;
+		try {
+			double convertedInput = Double.parseDouble(thresholdInput.getText());
+			if (convertedInput < 0.0 || convertedInput > 1.0) {
+				thresholdInput.setText(Double.toString(original));
+			} else {
+				threshold = convertedInput;
+			}
+		} catch(NumberFormatException e) {
+			thresholdInput.setText(Double.toString(original));
 		}
 	}
 	
@@ -187,7 +213,7 @@ public class Controller {
 	private void compareHistFrames() {
 		columnVector = new float[stiHeight];
 		for (int i = 0; i < stiHeight; i++) {
-			columnVector[i] = currentFrame[i].compareColumn(prevFrame[i]);
+			columnVector[i] = currentFrame[i].compareColumn(prevFrame[i], threshold);
 		}
 	}
 	

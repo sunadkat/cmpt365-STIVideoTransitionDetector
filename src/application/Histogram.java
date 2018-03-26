@@ -74,13 +74,14 @@ class Histogram {
 		}
 	}
 	
-	protected float compareColumn(Histogram x) {
+	protected float compareColumn(Histogram x, double threshold) {
 		float summation = 0;
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 				summation += Math.min(entry[i][j], x.getHistEntry(i, j));
 			}
 		}
+		if (summation < threshold) return 255;
 		return summation*255;
 	}
 	
