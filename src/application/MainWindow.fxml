@@ -101,7 +101,7 @@
                      </HBox.margin></VBox>
                </children>
             </HBox>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CMPT 365 | Simon Fraser University | May 2017&#10;David Tran (dta31@sfu.ca) | Sonal Unadkat (sunadkat@sfu.ca)" textAlignment="CENTER" wrappingWidth="456.638671875">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CMPT 365 | Simon Fraser University | Spring 2018&#10;David Tran (dta31@sfu.ca) | Sonal Unadkat (sunadkat@sfu.ca)" textAlignment="CENTER" wrappingWidth="456.638671875">
                <VBox.margin>
                   <Insets bottom="5.0" left="75.0" />
                </VBox.margin>
