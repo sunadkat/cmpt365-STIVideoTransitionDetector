@@ -178,13 +178,7 @@ public class Controller {
 			if ((int) capture.get(Videoio.CAP_PROP_POS_FRAMES) -1 != 0) {
 				prevFrame[i].copyColumn(currentFrame[i]);
 			}
-			
-			if(computationOption == 0)
-			{
-				currentFrame[i].computeRow(frame, frameWidth, i);
-			} else {
-				currentFrame[i].computeColumn(frame, frameWidth, i);	
-			}
+			currentFrame[i].computeHistogram(frame, frameWidth, i, computationOption);
 			currentFrame[i].normalize();
 		}
 	}
