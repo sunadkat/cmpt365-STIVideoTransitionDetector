@@ -11,6 +11,7 @@ import org.opencv.videoio.Videoio;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -29,6 +30,7 @@ public class Controller {
 	@FXML private CheckBox isScaled;
 	@FXML private Text videoName;
 	@FXML private TextField thresholdInput;
+	@FXML private Button runButton;
 	
 	private Mat image;
 	
@@ -49,6 +51,7 @@ public class Controller {
 	private void initialize() {
 		thresholdInput.setText(Double.toString(threshold));
 		thresholdInput.setDisable(true);
+		runButton.setDisable(true);
 	}
 	
 	@FXML
@@ -61,6 +64,7 @@ public class Controller {
 			fileName = file.getAbsolutePath();
 			String[] filePath = fileName.split("\\\\");
 			videoName.setText("Loaded Video: " + filePath[filePath.length -1]);
+			runButton.setDisable(false);
 		} catch (Exception e) {
 			System.out.println(e);
 			fileName = null;
