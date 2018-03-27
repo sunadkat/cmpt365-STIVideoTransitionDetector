@@ -5,6 +5,7 @@ import java.io.File;
 
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
 import org.opencv.videoio.Videoio;
@@ -31,6 +32,7 @@ public class Controller {
 	@FXML private Text videoName;
 	@FXML private TextField thresholdInput;
 	@FXML private Button runButton;
+	@FXML private Button saveButton;
 	
 	private Mat image;
 	
@@ -52,6 +54,7 @@ public class Controller {
 		thresholdInput.setText(Double.toString(threshold));
 		thresholdInput.setDisable(true);
 		runButton.setDisable(true);
+		saveButton.setDisable(true);
 	}
 	
 	@FXML
@@ -98,6 +101,26 @@ public class Controller {
 			capture = new VideoCapture(fileName);
 			if (capture.isOpened()) {
 				scanFrames();
+				saveButton.setDisable(false);
+			}
+		}
+	}
+	
+	@FXML
+	private void saveImage(ActionEvent event) {
+		if (image != null) {
+			try {
+				FileChooser fc = new FileChooser();
+				fc.setInitialDirectory(new java.io.File("."));
+				fc.setTitle("Save Image");
+				FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("JPEG files (*.jpg)", "*.jpg");
+				fc.getExtensionFilters().add(extFilter);
+				File file = fc.showSaveDialog(null);
+				if (file != null) {
+					Imgcodecs.imwrite(file.getAbsolutePath(), image);
+				}
+			} catch (Exception e) {
+				System.out.println(e);
 			}
 		}
 	}

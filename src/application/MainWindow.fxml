@@ -29,10 +29,11 @@
                      <children>
                         <Button mnemonicParsing="false" onAction="#selectVideo" prefWidth="80.0" text="Open">
                            <VBox.margin>
-                              <Insets bottom="5.0" top="3.0" />
+                              <Insets />
                            </VBox.margin>
                         </Button>
                         <Button fx:id="runButton" mnemonicParsing="false" onAction="#runSTIComputation" prefWidth="80.0" text="Run" />
+                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveImage" prefWidth="80.0" text="Save" />
                      </children>
                      <HBox.margin>
                         <Insets left="90.0" top="5.0" />
@@ -42,7 +43,7 @@
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="STI Method">
                            <VBox.margin>
-                              <Insets />
+                              <Insets top="10.0" />
                            </VBox.margin></Text>
                         <RadioButton mnemonicParsing="false" onAction="#selectCopyPixel" selected="true" text="Copying Pixels">
                            <VBox.margin>
@@ -66,7 +67,7 @@
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Computation">
                            <VBox.margin>
-                              <Insets />
+                              <Insets top="10.0" />
                            </VBox.margin></Text>
                         <RadioButton mnemonicParsing="false" selected="true" text="Row">
                            <VBox.margin>
@@ -90,7 +91,7 @@
                      <children>
                         <CheckBox fx:id="isScaled" mnemonicParsing="false" text="Downscale">
                            <VBox.margin>
-                              <Insets bottom="3.0" />
+                              <Insets bottom="5.0" top="10.0" />
                            </VBox.margin>
                         </CheckBox>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Threshold" />
@@ -113,6 +114,6 @@
       </VBox>
    </bottom>
    <center>
-      <ImageView fx:id="imageView" fitHeight="263.0" fitWidth="421.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+      <ImageView fx:id="imageView" fitHeight="263.0" fitWidth="590.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>
