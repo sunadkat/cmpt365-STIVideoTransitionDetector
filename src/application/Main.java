@@ -17,10 +17,6 @@ public class Main extends Application {
 			BorderPane root = (BorderPane)loader.load();
 			Scene scene = new Scene(root, 600, 400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setOnCloseRequest(e -> {
-				Controller controller = loader.getController();
-				controller.closeThreads();
-			});
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("STI Video Transition Detector");
 			primaryStage.show();

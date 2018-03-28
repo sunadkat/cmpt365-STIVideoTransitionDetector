@@ -16,48 +16,104 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
    <bottom>
-      <VBox prefHeight="111.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <VBox prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefWidth="200.0">
+            <Text fx:id="videoName" strokeType="OUTSIDE" strokeWidth="0.0" text="Loaded Video: None">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </Text>
+            <HBox prefWidth="600.0">
                <children>
-                  <VBox prefWidth="50.0">
+                  <VBox>
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#selectVideo" prefWidth="80.0" text="Open">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="runButton" mnemonicParsing="false" onAction="#runSTIComputation" prefWidth="80.0" text="Run" />
+                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveImage" prefWidth="80.0" text="Save" />
+                     </children>
                      <HBox.margin>
-                        <Insets left="100.0" />
+                        <Insets left="90.0" top="5.0" />
                      </HBox.margin>
                   </VBox>
+                  <VBox>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="STI Method">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin></Text>
+                        <RadioButton mnemonicParsing="false" onAction="#selectCopyPixel" selected="true" text="Copying Pixels">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="sti" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton mnemonicParsing="false" onAction="#selectHistogram" text="Histogram Difference" toggleGroup="$sti">
+                           <VBox.margin>
+                              <Insets bottom="5.0" top="5.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox layoutX="200.0" layoutY="10.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Computation">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin></Text>
+                        <RadioButton mnemonicParsing="false" selected="true" text="Row">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="computation" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton mnemonicParsing="false" text="Column" toggleGroup="$computation">
+                           <VBox.margin>
+                              <Insets bottom="5.0" top="5.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox layoutX="344.0" layoutY="10.0">
+                     <children>
+                        <CheckBox fx:id="isScaled" mnemonicParsing="false" text="Downscale">
+                           <VBox.margin>
+                              <Insets bottom="5.0" top="10.0" />
+                           </VBox.margin>
+                        </CheckBox>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Threshold" />
+                        <TextField fx:id="thresholdInput" maxWidth="80.0" />
+                     </children>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin></VBox>
                </children>
             </HBox>
-            <HBox prefHeight="68.0" prefWidth="600.0">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#openImage" prefWidth="80.0" text="Open">
-                     <HBox.margin>
-                        <Insets left="100.0" top="10.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" prefWidth="80.0" text="Play">
-                     <HBox.margin>
-                        <Insets left="10.0" top="10.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CMPT 365 | Simon Fraser University | May 2017&#10;David Tran (dta31@sfu.ca) | Sonal Unadkat (sunadkat@sfu.ca)" textAlignment="CENTER" wrappingWidth="456.638671875">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CMPT 365 | Simon Fraser University | Spring 2018&#10;David Tran (dta31@sfu.ca) | Sonal Unadkat (sunadkat@sfu.ca)" textAlignment="CENTER" wrappingWidth="456.638671875">
                <VBox.margin>
-                  <Insets left="50.0" />
+                  <Insets bottom="5.0" left="75.0" />
                </VBox.margin>
             </Text>
          </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
       </VBox>
    </bottom>
    <center>
-      <VBox>
-         <children>
-            <ImageView fx:id="imageView" fitHeight="263.0" fitWidth="421.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-               <VBox.margin>
-                  <Insets left="90.0" top="10.0" />
-               </VBox.margin>
-            </ImageView>
-         </children>
-      </VBox>
+      <ImageView fx:id="imageView" fitHeight="263.0" fitWidth="590.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>
